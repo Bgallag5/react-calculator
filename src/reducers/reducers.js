@@ -13,6 +13,13 @@ import {
 export const reducer = (state, { type, payload }) => {
   switch (type) {
     case ADD_DIGIT:
+        if (payload.digit === '.' && state.bottomDisplay != null){
+            if([...state.bottomDisplay].includes('.')) return state;
+            return {
+                ...state,
+                bottomDisplay: `${state.bottomDisplay || ""}${payload.digit}`,
+            }
+        }; 
       return {
         ...state,
         bottomDisplay: `${state.bottomDisplay || ""}${payload.digit}`,
