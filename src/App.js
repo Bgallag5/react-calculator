@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import { reducer } from "./reducers/reducers";
 import DigitButtons from "./components/DigitButtons";
 import OperationButtons from "./components/OperationButtons";
+import { CALCULATE, CLEAR, DELETE_DIGIT } from './reducers/actions';
 
 
 function App() {
@@ -20,8 +21,8 @@ function App() {
         </div>
         <div className="current-output">{bottomDisplay}</div>
       </div>
-      <button className="span-two">Clear</button>
-      <button>DEL</button>
+      <button className="span-two" onClick={() => dispatch({type: CLEAR})}>Clear</button>
+      <button onClick={() => dispatch({type: DELETE_DIGIT})}>DEL</button>
       <OperationButtons symbol="÷" dispatch={dispatch} />
       <DigitButtons digit="1" dispatch={dispatch} />
       <DigitButtons digit="2" dispatch={dispatch} />
@@ -37,7 +38,7 @@ function App() {
       <OperationButtons symbol="-" dispatch={dispatch} />
       <DigitButtons digit="." dispatch={dispatch} />
       <DigitButtons digit="0" dispatch={dispatch} />
-      <button className="span-two">=</button>
+      <button className="span-two" onClick={() => dispatch({type: CALCULATE})}>=</button>
     </div>
   );
 }

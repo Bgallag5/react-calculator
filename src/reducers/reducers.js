@@ -42,6 +42,35 @@ export const reducer = (state, { type, payload }) => {
         symbol: payload.symbol,
         bottomDisplay: '',
       };
+      case CLEAR: 
+      return {
+          ...state,
+          symbol: null,
+          topDisplay: null,
+          bottomDisplay: null
+      };
+      case CALCULATE: 
+      // conditionals: if I press equal button when...
+      // no top and bottom display: return state
+      // no bottom, return state
+      // no top, return state
+      // only run on having all state? 
+      if (!state.topDisplay || !state.bottomDisplay) return state;
+
+      return {
+          ...state,
+          bottomDisplay: calculate(state),
+          topDisplay: null,
+          symbol: null  
+      };
+      case DELETE_DIGIT: 
+      if (state.bottomDisplay == null ) return state; 
+      // spread and loop over current bottomVal and remove the last digit, then return as bottomVal
+      const newVal = [...state.bottomDisplay].slice(0, -1).join('');
+      return {
+          ...state,
+          bottomDisplay: newVal
+      } 
     default:
       return state;
   }
@@ -53,6 +82,7 @@ function calculate(state) {
   let topValue = parseFloat(state.topDisplay);
   let bottomValue = parseFloat(state.bottomDisplay);
   console.log(topValue, bottomValue);
+  //return calculated value as a string 
   switch (state.symbol) {
     case "+":
       return (topValue + bottomValue).toString();
