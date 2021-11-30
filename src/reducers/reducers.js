@@ -36,12 +36,11 @@ export const reducer = (state, { type, payload }) => {
           symbol: payload.symbol,
         };
       }
-      // if (state.topDisplay && state.symbol)
       return {
         ...state,
         topDisplay: calculate(state),
         symbol: payload.symbol,
-        bottomDisplay: "",
+        bottomDisplay: '',
       };
     default:
       return state;
@@ -57,7 +56,12 @@ function calculate(state) {
   switch (state.symbol) {
     case "+":
       return (topValue + bottomValue).toString();
-
+    case "-":
+      return (topValue - bottomValue).toString();
+    case "*":
+      return (topValue * bottomValue).toString();
+    case "÷":
+      return (topValue / bottomValue).toString();
     default:
       return state;
   }
